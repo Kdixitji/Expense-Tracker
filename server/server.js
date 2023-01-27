@@ -1,19 +1,30 @@
 import express from "express";
-import mongoose from "mongoose";
+import connect from "./Database/mongodb.js";
 import cors from "cors";
+import bodyParser from "body-parser";
+import TransactionAPI from "../server/routes/TransactionAPI.js";
+import AuthAPI from "../server/routes/AuthAPI.js";
+import LoginAPI from "../server/routes/LoginAPI.js"
 
-const PORT = 4000
-const app = express()
+const PORT = 4000;
+const app = express();
 
-app.get(cors);
+app.use(cors());
+app.use(bodyParser.urlencoded({ extended: false}));
+app.use(bodyParser.json());
+app.use(express.json());
 
-await mongoose.connect
-    ("mongodb+srv://kdixitji:kdixitji@cluster0.k6rugek.mongodb.net/?retryWrites=true&w=majority",).
-    then(() => console.log("connected to mongodb"));
-app.get("/",(req,res) => {
+app.get("/", (req, res) => {
     res.send("helloworld");
 });
 
+app.use("/transaction", TransactionAPI);
+app.use("/auth", AuthAPI);
+app.use("/login", LoginAPI);
+
+//connecting database
+await connect();
+
 app.listen(PORT,() => {
-    console.log("server is running on http://localhost:4000");
-})
+    console.log(`server is running on http://localhost:${PORT}`);
+});
