@@ -4,7 +4,12 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import TransactionAPI from "../server/routes/TransactionAPI.js";
 import AuthAPI from "../server/routes/AuthAPI.js";
-import LoginAPI from "../server/routes/LoginAPI.js"
+import LoginAPI from "../server/routes/LoginAPI.js";
+import passport from "passport";
+import passportConfig from "../server/config/passport.js";
+import * as dotenv from "dotenv";
+
+dotenv.config();
 
 const PORT = 4000;
 const app = express();
@@ -13,6 +18,9 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use(bodyParser.json());
 app.use(express.json());
+app.use(passport.initialize());
+
+passportConfig(passport);
 
 app.get("/", (req, res) => {
     res.send("helloworld");
