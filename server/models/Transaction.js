@@ -8,4 +8,5 @@ const transactionSchema = new Schema({
     createdAt : {type : Date, default : Date.now },
 });
 
+
 export default new mongoose.model("Transaction", transactionSchema);
