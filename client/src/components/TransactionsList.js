@@ -29,6 +29,7 @@ export default function TransactionsList({ transactions, fetchTransactions, setE
    }
 
   return (
+    
     <>
     <Typography 
       align="center"
