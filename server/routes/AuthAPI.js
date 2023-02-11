@@ -3,7 +3,6 @@ import express from "express";
 import User from "../models/User.js"
 import bcrypt from "bcrypt";
 
-
 const router = express.Router();
 
 router.post("/register", async (req, res) => {
@@ -13,13 +12,11 @@ router.post("/register", async (req, res) => {
    
    const userExists = await User.findOne({ email });
 
-
    if(userExists){
       res.status(406).json("User already exists, try with another mail");
       return
    }
-   
-   
+      
    const user = new User(
       { 
          firstName, 
