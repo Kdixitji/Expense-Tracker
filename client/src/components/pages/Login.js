@@ -11,7 +11,6 @@ import Container from '@mui/material/Container';
 import * as React from 'react';
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 
-
 export default function Login() {
 
   const navigate = useNavigate();
@@ -23,7 +22,6 @@ export default function Login() {
       password: data.get('password'),
     };
   
-
     const res = await fetch("http://localhost:4000/login", {
       method : "POST",
       body : JSON.stringify(form),
