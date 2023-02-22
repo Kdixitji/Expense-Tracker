@@ -7,7 +7,6 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import Button from '@mui/material/Button';
-import { create } from '@mui/material/styles/createTransitions';
 
 const InitialForm = {
   amount : 0,
@@ -104,7 +103,8 @@ export default function TransactionForm({fetchTransactions, editTransaction}) {
             )}
             {editTransaction.amount ===  undefined && (
               <Button variant="contained" type="submit">Submit</Button>
-            )}                 
+            )}
+                    
           </form>
       </CardContent>
     </Card>
