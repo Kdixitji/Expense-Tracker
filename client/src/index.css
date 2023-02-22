@@ -1,9 +1,8 @@
-.body{
-    background-color: #f1f6f7;
+body{
+    background-color: #bfc3da42;
 }
 
-
-.text-white {
+.text-white{
     color: rgb(255, 255, 255);
     text-decoration: none;
 }
