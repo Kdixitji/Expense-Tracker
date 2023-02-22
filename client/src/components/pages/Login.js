@@ -10,6 +10,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import * as React from 'react';
 import { Link as RouterLink, useNavigate } from "react-router-dom";
+import Cookie from 'js-cookie';
 
 export default function Login() {
 
@@ -29,7 +30,11 @@ export default function Login() {
         'content-type' : "application/json"
       },
     });
+
+    const { token } = await res.json();
+    
     if (res.ok){
+      Cookie.set("token", token);
       navigate("/");
     }
   };
