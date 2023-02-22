@@ -15,14 +15,19 @@ router.post("/", async (req, res) => {
     }
  
     const matched =  await bcrypt.compare(password, user.password);
+    
     if(!matched){
        res.status(406).json({ message : "Incorrect Password"});
        return;
     }
    
-    const token = jwt.sign({}, 'some secrets.');
-    res.json({ message : "successfully logged in", token });
- 
+    const payload = {
+      username: email,
+      _id: user._id,
+    }
+    const token = jwt.sign(payload, 'some secrets.');
+    res.json({ message : "successfully logged in", token, user });
+    
  });
 
 export default router;
