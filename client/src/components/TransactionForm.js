@@ -7,6 +7,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import Button from '@mui/material/Button';
+import Cookies from "js-cookie";
 
 const InitialForm = {
   amount : 0,
@@ -15,6 +16,7 @@ const InitialForm = {
 };
 
 export default function TransactionForm({fetchTransactions, editTransaction}) {
+  const token = Cookies.get("token");
   const [form,setForm] = useState(InitialForm);
 
   useEffect(() => {
@@ -33,22 +35,24 @@ export default function TransactionForm({fetchTransactions, editTransaction}) {
 
   async function handleSubmit(e){
     e.preventDefault();
-    const res = editTransaction.amount === undefined ? create() : update();
-    
+    editTransaction.amount === undefined ? create() : update();
+  }  
+  function reload(res){
     if(res.ok){
       setForm(InitialForm);
       fetchTransactions();
     }
   }
   async function create() {
-      const res = await fetch("http://localhost:4000/transaction" , {
+      const res = await fetch(`http://localhost:4000/transaction` , {
       method : 'POST',
       body : JSON.stringify(form),
       headers : {
         "content-type" : "application/json",
+        Authorization: `Bearer ${token}`,
       },
     });
-    return res;
+    reload(res);
   };
 
   async function update() {
@@ -57,9 +61,10 @@ export default function TransactionForm({fetchTransactions, editTransaction}) {
       body : JSON.stringify(form),
       headers : {
         'content-type' : "application/json",
+        Authorization: `Bearer ${token}`,
       },
     });
-    return res;
+    reload(res);
   };
 
   return (
